@@ -27,6 +27,7 @@ config = load(open(config_path).read(), Loader=Loader)
 SOURCE = config['source']
 DATASET = config['dataset']
 TABLES = config['tables']
+EXTRACT = config['extract_type']
 RAW = Path(args.workdir)
 
 try:
@@ -43,7 +44,7 @@ def build_query(table):
         {1}.{2}
     '''.format(table['columns'], DATASET, table['name'])
 
-    if table['extract_type'] != 'full':
+    if EXTRACT != 'full':
         if table['date_type'] == 'equal':
             operator = '='
         elif table['date_type'] == 'less_than':
