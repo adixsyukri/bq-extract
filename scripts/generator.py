@@ -28,7 +28,7 @@ SOURCE = config['source']
 DATASET = config['dataset']
 TABLES = config['tables']
 EXTRACT = config['extract_type']
-RAW = Path(args.workdir)
+RAW = PurePath(args.workdir, "data")
 
 try:
     DATE = datetime.strptime(config['extract_date'], '%Y-%m-%d').date().isoformat()
