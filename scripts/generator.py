@@ -28,7 +28,10 @@ SOURCE = config['source']
 DATASET = config['dataset']
 TABLES = config['tables']
 EXTRACT = config['extract_type']
+FORMAT = config['format']
 RAW = PurePath(args.workdir, "data")
+TIMESTAMP = datetime.now().isoformat()
+load_date = '"{0}" as load_date'.format(TIMESTAMP)
 
 try:
     DATE = datetime.strptime(config['extract_date'], '%Y-%m-%d').date().isoformat()
@@ -39,10 +42,11 @@ except:
 def build_query(table):
     query = '''
         select
-        {0}
+        {0},
+        {3}
         from
         {1}.{2}
-    '''.format(table['columns'], DATASET, table['name'])
+    '''.format(table['columns'], DATASET, table['name'], load_date)
 
     if EXTRACT != 'full':
         if table['date_type'] == 'equal':
@@ -72,16 +76,26 @@ def load_data(query):
     )
     return dataframe
 
+def to_output(data, final_path):
+    if FORMAT == 'txt':
+        output = data.to_csv(sep='\t', header=True, quotechar='"', line_terminator='\n', index=False)
+        with codecs.open('{0}.txt'.format(final_path), "w", "utf-8-sig") as writefile:
+            writefile.writelines(output)
+    
+    elif FORMAT == 'parquet':
+        return data.to_parquet(path='{0}.parquet'.format(final_path), engine='auto', compression='snappy', index=None)
+    
+    else:
+        return 1
+
 def write_output(data, table, rundate, summary, folder):
-    output_file = '{source}_{table}_{rundate}.txt'.format(
+    output_file = '{source}_{table}_{rundate}'.format(
         source = SOURCE.upper(), 
         table = table['name'].upper(), 
         rundate = rundate)
     final_path = folder.joinpath(output_file)
     rows = len(data.index)
-    output = data.to_csv(sep='|', header=True, quotechar='"', line_terminator='\n', index=False)
-    with codecs.open(final_path, "w", "utf-8-sig") as writefile:
-        writefile.writelines(output)
+    to_output(data, final_path)
     
     summary_path = folder.joinpath(summary)
     with open(summary_path, 'a') as summmaryfile:
