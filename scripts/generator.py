@@ -78,7 +78,7 @@ def load_data(query):
 
 def to_output(data, final_path):
     if FORMAT == 'txt':
-        output = data.to_csv(sep='\t', header=True, quotechar='"', line_terminator='\n', index=False)
+        output = data.to_csv(sep=config['separator'], header=True, quotechar='"', line_terminator='\n', index=False)
         with codecs.open('{0}.txt'.format(final_path), "w", "utf-8-sig") as writefile:
             writefile.writelines(output)
     

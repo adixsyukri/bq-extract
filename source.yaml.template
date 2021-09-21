@@ -7,6 +7,7 @@ date_type: equal
 environment: dev
 # format: parquet, format: txt
 format: parquet
+separator: "\t"
 tables:
   -
     name: table_a
