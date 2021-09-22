@@ -11,5 +11,5 @@ separator: "\t"
 tables:
   -
     name: table_a
-    columns: "column_1,column_2,column_timestamp"
+    columns: 'column_1,column_2,column_timestamp"
     date_column: "DATE(column_timestamp)"

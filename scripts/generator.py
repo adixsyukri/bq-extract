@@ -30,6 +30,7 @@ TABLES = config['tables']
 EXTRACT = config['extract_type']
 FORMAT = config['format']
 RAW = PurePath(args.workdir, "data")
+DATETYPE = config['date_type']
 TIMESTAMP = datetime.now().isoformat()
 load_date = '"{0}" as load_date'.format(TIMESTAMP)
 
@@ -49,11 +50,11 @@ def build_query(table):
     '''.format(table['columns'], DATASET, table['name'], load_date)
 
     if EXTRACT != 'full':
-        if table['date_type'] == 'equal':
+        if DATETYPE == 'equal':
             operator = '='
-        elif table['date_type'] == 'less_than':
+        elif DATETYPE == 'less_than':
             operator = '<'
-        elif table['date_type'] == 'bigger_equal':
+        elif DATETYPE == 'bigger_equal':
             operator = '>='
 
         query = query + ' where {0} {2} "{1}" '.format(table['date_column'], DATE, operator)
