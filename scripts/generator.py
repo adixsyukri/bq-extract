@@ -110,12 +110,12 @@ if __name__ == '__main__':
     folder = RAW.joinpath(output_folder)
     os.mkdir(folder)
     summary = 'SUMMARY_{source}_{rundate}.txt'.format(source=SOURCE.upper(), rundate=rundate)
-    tar = tarfile.open('{directory}.tar.gz'.format(directory=folder), "w:gz")
+    os.chdir(RAW)
+    tar = tarfile.open('{filename}.tar.gz'.format(filename=output_folder), "w:gz")
     final_summary = ''
 
     for table in TABLES:
         query = build_query(table)
         data = load_data(query)
         final_output, final_summary = write_output(data, table, rundate, summary, folder)
-
-    tar.add(folder)
+    tar.add(output_folder)
