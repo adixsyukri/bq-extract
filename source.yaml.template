@@ -1,6 +1,7 @@
 source: MYSOURCE
 dataset: Mydataset
 extract_date: "2021-09-17"
+# extract_type: full; extract_type: daily
 extract_type: full
 # equal: "="; less_than: "<"; bigger_equal: ">="
 date_type: equal 
