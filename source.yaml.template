@@ -1,16 +1,29 @@
-source: MYSOURCE
-dataset: Mydataset
-extract_date: "2021-09-17"
-# extract_type: full; extract_type: daily
-extract_type: full
-# equal: "="; less_than: "<"; bigger_equal: ">="
-date_type: equal 
+log: /var/log/bq-extract
 environment: dev
-# format: parquet, format: txt
-format: parquet
-separator: "\t"
+
+source: 
+  name: MYSOURCE
+  project: bigquery-project
+  dataset: Mydataset
+  extract_date: "2021-09-17"
+  # extract_type: full; extract_type: daily
+  extract_type: full
+  # equal: "="; less_than: "<"; bigger_equal: ">="
+  date_type: equal
+
+output:
+  # format: parquet, format: txt
+  format: parquet
+  separator: "\t"
+  # engine: dataflow, engine: local
+  engine: local
+  destination: dataflow
+  bucket: google-storage-bucket-name
+  datadir: /local/output/location/path
+
 tables:
   -
     name: table_a
-    columns: 'column_1,column_2,column_timestamp"
+    columns_query: 'cast(column_1 as string) column_1,column_2,column_timestamp"
+    header: ['column_1', 'column_2', 'column_timestamp']
     date_column: "DATE(column_timestamp)"

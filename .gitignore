@@ -2,3 +2,4 @@
 data
 *.json
 *.sh
+*.pyc
