@@ -15,7 +15,7 @@ def set_log(config, logname):
     
     # Check bq extract log folder exists or not, manually create the folder if not exists
     try:
-        os.path.isdir(log)
+        os.path.isdir(config['log'])
     except Exception:
         logger.error(Exception)
         sys.exit("Log folder does not exists, please create and provide the right access", exc_info=True)
