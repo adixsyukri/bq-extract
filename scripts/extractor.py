@@ -46,7 +46,7 @@ def output_settings():
     summary = 'SUMMARY_{source}_{rundate}.txt'.format(source=config['source']['name'].upper(), rundate=rundate)
 
     try:
-        DATE = datetime.strptime(config['extract_date'], '%Y-%m-%d').date().isoformat()
+        DATE = config['source']['extract_date'].isoformat()
         logger.info("Extract exact records date: {}".format(DATE))
     except:
         yesterday = datetime.today() - timedelta(days=1)
