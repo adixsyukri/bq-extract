@@ -92,7 +92,7 @@ class DataflowEngine(Engine):
             '--staging_location', 'gs://{0}/{1}'.format(self.config['output']['bucket'], 'staging'),
             '--temp_location', 'gs://{0}/{1}'.format(self.config['output']['bucket'], 'temp'),
             '--region', 'asia-southeast1',
-            '--runner', 'DirectRunner'
+            '--runner', 'DataflowRunner'
         ])
     
         # instantiate a pipeline with all the pipeline option

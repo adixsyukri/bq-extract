@@ -26,7 +26,8 @@ table_name = args.table_name
 job_datetime = args.rundate
 config = load(open(PurePath(filepath)).read(), Loader=Loader)
 
-logger = set_log(config)
+logname = 'bq-extract-{}'.format(table_name)
+logger = set_log(config, logname)
 
 def output_settings():
     datadir = config['output']['datadir']

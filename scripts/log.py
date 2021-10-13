@@ -7,9 +7,9 @@ from datetime import datetime, timedelta
 def sys_exit():
     sys.exit("script ended with failure")
 
-def set_log(config):
+def set_log(config, logname):
     
-    log = PurePath(config['log'], 'bq-extract')
+    log = PurePath(config['log'], '{}'.format(logname))
     logdate = datetime.now().strftime('%Y%m%d')
     logdir = PurePath(log, logdate)
     logger = logging.getLogger('Bigquery Extraction')

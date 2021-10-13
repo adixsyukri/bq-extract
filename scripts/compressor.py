@@ -24,7 +24,7 @@ filepath = args.filepath
 job_datetime = args.rundate
 config = load(open(PurePath(filepath)).read(), Loader=Loader)
 
-logger = set_log(config)
+logger = set_log(config, 'compressor')
 
 def output_settings():
     datadir = config['output']['datadir']
