@@ -9,9 +9,8 @@ def sys_exit():
 
 def set_log(config, logname):
     
-    log = PurePath(config['log'], 'bq-extract')
     logdate = datetime.now().strftime('%Y%m%d')
-    logdir = PurePath(log, logdate)
+    logdir = PurePath(config['log'], logdate)
     logger = logging.getLogger('Bigquery Extraction')
     
     # Check bq extract log folder exists or not, manually create the folder if not exists
