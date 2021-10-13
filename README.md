@@ -14,5 +14,6 @@ conda install -c conda-forge google-cloud-storage
 
 # Run
 ```bash
-python scripts/generator.py --path source.yaml --workdir $PWD
+python scripts/generator.py --path source.yaml --table table_name --rundate 2021-10-13T12:26:00.000000
+python scripts/compressor.py --path source.yaml --rundate 2021-10-13T12:26:00.000000
 ```
