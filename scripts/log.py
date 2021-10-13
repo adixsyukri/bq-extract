@@ -17,8 +17,8 @@ def set_log(config, logname):
     try:
         os.path.isdir(config['log'])
     except Exception:
-        logger.error(Exception)
-        sys.exit("Log folder does not exists, please create and provide the right access", exc_info=True)
+        logger.error("Check logs directory error", exc_info=True)
+        sys_exit()
     
     # Create folder Log with date
     try:
