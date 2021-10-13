@@ -28,14 +28,16 @@ logger = set_log(config)
 
 def output_settings():
     datadir = config['output']['datadir']
-    RAW = PurePath(datadir)
+    raw = PurePath(datadir,'raw')
+    outbound = PurePath(datadir,'outbound')
     timestamp = datetime.fromisoformat(job_datetime)
     rundate = timestamp.strftime('%Y%m%d_%H%M%S')
     output_folder = '{source}_{rundate}'.format(source=config['source']['name'], rundate=rundate)
  
     settings = {
         'output_folder': output_folder,
-        'raw': RAW
+        'raw': raw,
+        'outbound': outbound
     }
 
     return settings
@@ -44,7 +46,8 @@ def run_main():
     settings = output_settings()
     logger.info("Compression Begin: {}".format(settings['output_folder']))
     # Change directory to data folder
-    tar = tarfile.open('{filename}.tar.gz'.format(filename=settings['output_folder']), "w:gz")
+    compressed_file = settings['outbound'].joinpath(settings['output_folder'])
+    tar = tarfile.open('{filename}.tar.gz'.format(filename=compressed_file), "w:gz")
 
     try:
         os.chdir(settings['raw'])

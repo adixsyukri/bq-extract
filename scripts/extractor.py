@@ -30,7 +30,7 @@ logger = set_log(config)
 
 def output_settings():
     datadir = config['output']['datadir']
-    RAW = PurePath(datadir)
+    RAW = PurePath(datadir,'raw')
     timestamp = datetime.fromisoformat(job_datetime)
     load_date = '"{0}" as load_date'.format(timestamp)
     rundate = timestamp.strftime('%Y%m%d_%H%M%S')

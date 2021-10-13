@@ -92,7 +92,7 @@ class DataflowEngine(Engine):
             '--staging_location', 'gs://{0}/{1}'.format(self.config['output']['bucket'], 'staging'),
             '--temp_location', 'gs://{0}/{1}'.format(self.config['output']['bucket'], 'temp'),
             '--region', 'asia-southeast1',
-            '--runner', 'DataflowRunner'
+            '--runner', 'DirectRunner'
         ])
     
         # instantiate a pipeline with all the pipeline option
@@ -124,9 +124,8 @@ class DataflowEngine(Engine):
 
         blobs = storage_client.list_blobs(self.config['output']['bucket'], prefix=prefix)   
         fullpath = '{0}.parquet'.format(
-            PurePath(
-                self.config['output']['datadir'], 
-                self.settings['output_folder'],
+            PurePath( 
+                self.settings['folder'],
                 table['output_file'])
         )
         for blob in blobs:
