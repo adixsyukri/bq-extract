@@ -45,13 +45,9 @@ def output_settings():
 
     summary = 'SUMMARY_{source}_{rundate}.txt'.format(source=config['source']['name'].upper(), rundate=rundate)
 
-    try:
-        DATE = config['source']['extract_date'].isoformat()
-        logger.info("Extract exact records date: {}".format(DATE))
-    except:
-        yesterday = datetime.today() - timedelta(days=1)
-        DATE = yesterday.date().isoformat()
-        logger.info("Extract T-1 records: {}".format(DATE))
+    yesterday = datetime.fromisoformat(job_datetime) - timedelta(days=1)
+    DATE = yesterday.date().isoformat()
+    logger.info("Extract T-1 records: {}".format(DATE))
     
     settings = {
         'rundate': rundate,
