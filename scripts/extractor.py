@@ -33,7 +33,7 @@ def output_settings():
     datadir = config['output']['datadir']
     RAW = PurePath(datadir,'raw')
     timestamp = datetime.fromisoformat(job_datetime)
-    load_date = '"{0}" as load_date'.format(timestamp)
+    load_date = '"{0}" as load_date'.format(job_datetime)
     rundate = timestamp.strftime('%Y%m%d_%H%M%S')
     output_folder = '{source}_{rundate}'.format(source=config['source']['name'], rundate=rundate)
     folder = RAW.joinpath(output_folder)
